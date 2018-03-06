@@ -12,7 +12,7 @@
 %endif
 
 Name: python-molecule
-Version: 2.7
+Version: 2.9
 Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
@@ -33,22 +33,33 @@ BuildRequires:  python2-pbr
 BuildRequires:  python2-setuptools
 BuildRequires:  python2-sphinx
 
+# doc & testing requirements
+BuildRequires:  python2-sh
+BuildRequires:  python2-anyconfig
+BuildRequires:  python2-colorama
+BuildRequires:  python2-jinja2
+BuildRequires:  python2-marshmallow
+BuildRequires:  PyYAML
+BuildRequires:  python2-click
+#BuildRequires:  python2-tree-format
+
 %if %{with python3}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pbr
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 
-# testing requirements
-#BuildRequires:  python3-sh
-#BuildRequires:  python3-anyconfig
-#BuildRequires:  python3-colorama
-#BuildRequires:  python3-jinja2
-#BuildRequires:  python3-marshmallow
-#BuildRequires:  python3-PyYAML
-#BuildRequires:  ansible
-#BuildRequires:  python3-click
+# # doc & testing requirements
+BuildRequires:  python3-sh
+BuildRequires:  python3-anyconfig
+BuildRequires:  python3-colorama
+BuildRequires:  python3-jinja2
+BuildRequires:  python3-marshmallow
+BuildRequires:  python3-PyYAML
+BuildRequires:  ansible
+BuildRequires:  python3-click
 BuildRequires:  yamllint
+#BuildRequires:  python3-tree-format
 %endif # with python3
 
 %description
@@ -63,6 +74,7 @@ and its associated tests. Molecule supports any provider that Ansible supports.
 %package     -n python2-molecule
 Summary: %summary
 Recommends: python-molecule-doc
+%{?python_provide:%python_provide python2-%{pkgname}}
 %description -n python2-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
 Molecule provides support for testing with multiple instances, operating
@@ -81,6 +93,7 @@ Documentation for python-molecule
 %package     -n python3-molecule
 Summary: %summary
 Recommends: python-molecule-doc
+%{?python_provide:%python_provide python3-%{pkgname}}
 %description -n python3-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
 Molecule provides support for testing with multiple instances, operating
@@ -94,7 +107,6 @@ and its associated tests. Molecule supports any provider that Ansible supports.
 
 %prep
 %autosetup -n %{pkgname}-%{version}
-sed -i 's/yamllint==1.8.1/yamllint==1.10.0/' requirements.txt
 
 %build
 %{setup_flags} %{py2_build}
@@ -109,14 +121,16 @@ PYTHONPATH=. sphinx-build doc/source html
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-# Must do the python3 install first because the scripts in /usr/bin are
-# overwritten with every setup.py install (and we want the python2 version
-# to be the default for now).
+%{setup_flags} %{py2_install}
+
 %if %{with python3}
 %{setup_flags} %{py3_install}
 %endif # with python3
 
-%{setup_flags} %{py2_install}
+# Xcheck
+# Xif X{with python3}
+# X{setup_flags} X{__python3} setup.py test
+# Xendif # with python3
 
 %files -n python2-molecule
 %license LICENSE
@@ -136,5 +150,8 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Mon Mar 5 2018 Brett Lentz <brett.lentz@gmail.com> - 2.9-1
+- update to 2.9
+
 * Tue Jan 23 2018 Brett Lentz <brett.lentz@gmail.com> - 2.7-1
 - initial package
