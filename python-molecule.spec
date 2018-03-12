@@ -12,7 +12,7 @@
 %endif
 
 Name: python-molecule
-Version: 2.9
+Version: 2.10.1
 Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
@@ -41,7 +41,7 @@ BuildRequires:  python2-jinja2
 BuildRequires:  python2-marshmallow
 BuildRequires:  PyYAML
 BuildRequires:  python2-click
-#BuildRequires:  python2-tree-format
+BuildRequires:  python2-tree-format
 
 %if %{with python3}
 BuildRequires:  python3-devel
@@ -59,7 +59,7 @@ BuildRequires:  python3-PyYAML
 BuildRequires:  ansible
 BuildRequires:  python3-click
 BuildRequires:  yamllint
-#BuildRequires:  python3-tree-format
+BuildRequires:  python3-tree-format
 %endif # with python3
 
 %description
@@ -150,6 +150,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Mon Mar 12 2018 Brett Lentz <brett.lentz@gmail.com> - 2.10.1-1
+- update to 2.10.1
+
 * Mon Mar 5 2018 Brett Lentz <brett.lentz@gmail.com> - 2.9-1
 - update to 2.9
 
