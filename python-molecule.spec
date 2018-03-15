@@ -13,7 +13,7 @@
 
 Name: python-molecule
 Version: 2.10.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -28,37 +28,33 @@ Source0: https://github.com/metacloud/molecule/archive/%{version}.tar.gz
 
 BuildArch: noarch
 
-BuildRequires:  python2-devel
-BuildRequires:  python2-pbr
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-sphinx
-
-# doc & testing requirements
-BuildRequires:  python2-sh
+BuildRequires:  ansible
 BuildRequires:  python2-anyconfig
+BuildRequires:  python2-click
 BuildRequires:  python2-colorama
+BuildRequires:  python2-devel
 BuildRequires:  python2-jinja2
 BuildRequires:  python2-marshmallow
-BuildRequires:  PyYAML
-BuildRequires:  python2-click
+BuildRequires:  python2-pbr
+BuildRequires:  python2-setuptools
+BuildRequires:  python2-sh
+BuildRequires:  python2-sphinx
 BuildRequires:  python2-tree-format
+BuildRequires:  PyYAML
+BuildRequires:  yamllint
 
 %if %{with python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-sphinx
-
-# # doc & testing requirements
-BuildRequires:  python3-sh
 BuildRequires:  python3-anyconfig
+BuildRequires:  python3-click
 BuildRequires:  python3-colorama
+BuildRequires:  python3-devel
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-marshmallow
 BuildRequires:  python3-PyYAML
-BuildRequires:  ansible
-BuildRequires:  python3-click
-BuildRequires:  yamllint
+BuildRequires:  python3-pbr
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-sh
+BuildRequires:  python3-sphinx
 BuildRequires:  python3-tree-format
 %endif # with python3
 
@@ -74,6 +70,8 @@ and its associated tests. Molecule supports any provider that Ansible supports.
 %package     -n python2-molecule
 Summary: %summary
 Recommends: python-molecule-doc
+Requires: python2-testinfra
+Requires: ansible
 %{?python_provide:%python_provide python2-%{pkgname}}
 %description -n python2-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
@@ -93,6 +91,8 @@ Documentation for python-molecule
 %package     -n python3-molecule
 Summary: %summary
 Recommends: python-molecule-doc
+Requires: python3-testinfra
+Requires: ansible
 %{?python_provide:%python_provide python3-%{pkgname}}
 %description -n python3-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
@@ -127,7 +127,10 @@ rm -rf html/.{doctrees,buildinfo}
 %{setup_flags} %{py3_install}
 %endif # with python3
 
-# Xcheck
+%check
+# can't do python2 tests because yamllint is only packaged for python3
+
+# FIXME: library pathing issues causing tests to fail
 # Xif X{with python3}
 # X{setup_flags} X{__python3} setup.py test
 # Xendif # with python3
@@ -150,6 +153,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Wed Mar 14 2018 Brett Lentz <brett.lentz@gmail.com> - 2.10.1-2
+- fix package deps
+
 * Mon Mar 12 2018 Brett Lentz <brett.lentz@gmail.com> - 2.10.1-1
 - update to 2.10.1
 
