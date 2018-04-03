@@ -13,7 +13,7 @@
 
 Name: python-molecule
 Version: 2.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -28,7 +28,6 @@ Source0: https://github.com/metacloud/molecule/archive/%{version}.tar.gz
 
 BuildArch: noarch
 
-BuildRequires:  ansible
 BuildRequires:  python2-anyconfig
 BuildRequires:  python2-click
 BuildRequires:  python2-colorama
@@ -70,8 +69,30 @@ and its associated tests. Molecule supports any provider that Ansible supports.
 %package     -n python2-molecule
 Summary: %summary
 Recommends: python-molecule-doc
-Requires: python2-testinfra
+%if %{with python3}
+Requires: python3-molecule
+%endif
 Requires: ansible
+Requires: python2-anyconfig
+Requires: python2-cerberus
+Requires: python2-click
+Requires: python2-click-completion
+Requires: python2-colorama
+Requires: python2-cookiecutter
+Requires: python2-flake8
+Requires: python2-future
+Requires: python2-jinja2
+Requires: python2-marshmallow
+Requires: python2-pbr
+Requires: python2-pexpect
+Requires: python2-poyo
+Requires: python2-requests
+Requires: python2-sh
+Requires: python2-tabulate
+Requires: python2-testinfra
+Requires: python2-tree-format
+Requires: PyYAML
+Requires: yamllint
 %{?python_provide:%python_provide python2-%{pkgname}}
 %description -n python2-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
@@ -91,8 +112,26 @@ Documentation for python-molecule
 %package     -n python3-molecule
 Summary: %summary
 Recommends: python-molecule-doc
-Requires: python3-testinfra
 Requires: ansible-python3
+Requires: python3-anyconfig
+Requires: python3-cerberus
+Requires: python3-click
+Requires: python3-click-completion
+Requires: python3-colorama
+Requires: python3-cookiecutter
+Requires: python3-flake8
+Requires: python3-future
+Requires: python3-jinja2
+Requires: python3-marshmallow
+Requires: python3-PyYAML
+Requires: python3-pbr
+Requires: python3-pexpect
+Requires: python3-poyo
+Requires: python3-requests
+Requires: python3-sh
+Requires: python3-tabulate
+Requires: python3-testinfra
+Requires: python3-tree-format
 %{?python_provide:%python_provide python3-%{pkgname}}
 %description -n python3-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
@@ -153,7 +192,7 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
-* Mon Apr 2 2018 Brett Lentz <brett.lentz@gmail.com> - 2.12.1-1
+* Mon Apr 2 2018 Brett Lentz <brett.lentz@gmail.com> - 2.12.1-2
 - update to 2.12.1
 
 * Thu Mar 29 2018 Brett Lentz <brett.lentz@gmail.com> - 2.11-1
