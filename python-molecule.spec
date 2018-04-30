@@ -12,8 +12,8 @@
 %endif
 
 Name: python-molecule
-Version: 2.12.1
-Release: 2%{?dist}
+Version: 2.13
+Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -192,6 +192,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Mon Apr 30 2018 Brett Lentz <brett.lentz@gmail.com> - 2.13-1
+- update to 2.13
+
 * Mon Apr 2 2018 Brett Lentz <brett.lentz@gmail.com> - 2.12.1-2
 - update to 2.12.1
 
