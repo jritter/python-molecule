@@ -12,7 +12,7 @@
 %endif
 
 Name: python-molecule
-Version: 2.13
+Version: 2.13.1
 Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
@@ -146,6 +146,15 @@ and its associated tests. Molecule supports any provider that Ansible supports.
 
 %prep
 %autosetup -n %{pkgname}-%{version}
+cat <<EOF >> setup.cfg
+
+[files]
+data_files =
+    %{python2_sitelib}/%{pkgname}/cookiecutter = molecule/cookiecutter/*
+%if %{with python3}
+    %{python3_sitelib}/%{pkgname}/cookiecutter = molecule/cookiecutter/*
+%endif # with python3
+EOF
 
 %build
 %{setup_flags} %{py2_build}
@@ -192,6 +201,10 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Wed May 9 2018 Brett Lentz <brett.lentz@gmail.com> - 2.13.1-1
+- update to 2.13.1
+- ensure all needed files are installed
+
 * Mon Apr 30 2018 Brett Lentz <brett.lentz@gmail.com> - 2.13-1
 - update to 2.13
 
