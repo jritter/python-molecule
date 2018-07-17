@@ -12,8 +12,8 @@
 %endif
 
 Name: python-molecule
-Version: 2.13.1
-Release: 4%{?dist}
+Version: 2.16
+Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -203,6 +203,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Tue Jul 17 2018 Brett Lentz <brett.lentz@gmail.com> - 2.16-1
+- update to 2.16
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
