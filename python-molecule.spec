@@ -2,8 +2,8 @@
 %global setup_flags SKIP_PIP_INSTALL=1 PBR_VERSION=%{version}
 
 Name: python-molecule
-Version: 2.16
-Release: 2%{?dist}
+Version: 2.19
+Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -123,6 +123,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Tue Oct 23 2018 Brett Lentz <brett.lentz@gmail.com> - 2.19-1
+- update to 2.19
+
 * Thu Oct 11 2018 Miro Hrončok <mhroncok@redhat.com> - 2.16-2
 - Python2 binary package has been removed
   See https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
