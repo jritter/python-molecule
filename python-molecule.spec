@@ -2,8 +2,8 @@
 %global setup_flags SKIP_PIP_INSTALL=1 PBR_VERSION=%{version}
 
 Name: python-molecule
-Version: 2.19
-Release: 2%{?dist}
+Version:  2.20.1
+Release: 1%{?dist}
 Summary: Molecule is designed to aid in the development and testing of Ansible roles
 
 # Most of the package is MIT licensed.
@@ -76,6 +76,7 @@ Requires: python3-tabulate
 Requires: python3-testinfra
 Requires: python3-tree-format
 %{?python_provide:%python_provide python3-%{pkgname}}
+%{?python_disable_dependency_generator}
 %description -n python3-molecule
 Molecule is designed to aid in the development and testing of Ansible roles.
 Molecule provides support for testing with multiple instances, operating
@@ -123,6 +124,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc *-requirements.txt
 
 %changelog
+* Mon Jul 01 2019 Juerg Ritter <juerg_ritter@bluewin.ch> - 2.20.1-1
+- update to 2.20.1 and disabled dependency generator
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
